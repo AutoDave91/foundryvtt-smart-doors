@@ -41,6 +41,14 @@ export function registerSettings() {
 		type: Boolean,
 		default: true,
 	});
+	game.settings.register(settingsKey, "unlockedDoorAlert", {
+		name: "smart-doors.settings.unlockedDoorAlert.name",
+		hint: "smart-doors.settings.unlockedDoorAlert.hint",
+		scope: "world",
+		config: true,
+		type: Boolean,
+		default: true,
+	});
 	game.settings.register(settingsKey, "synchronizedDoors", {
 		name: "smart-doors.settings.synchronizedDoors.name",
 		hint: "smart-doors.settings.synchronizedDoors.hint",

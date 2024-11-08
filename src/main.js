@@ -1,15 +1,16 @@
 "use strict";
 
-import {libWrapper} from "../lib/libwrapper_shim.js";
+import { libWrapper } from "../lib/libwrapper_shim.js";
 import * as DoorControlIconScale from "./features/door_control_icon_scale.js";
 import * as HighlightSecretDoors from "./features/highlight_secret_doors.js";
 import * as LockedDoorAlert from "./features/locked_door_alert.js";
+import * as UnlockedDoorAlert from "./features/unlocked_door_alert.js";
 import * as SynchronizedDoors from "./features/synchronized_doors.js";
 import * as ToggleSecretDoor from "./features/toggle_secret_door.js";
 
-import {performMigrations} from "./migration.js";
-import {registerKeybindings} from "./keybindings.js";
-import {registerSettings, settingsKey} from "./settings.js";
+import { performMigrations } from "./migration.js";
+import { registerKeybindings } from "./keybindings.js";
+import { registerSettings, settingsKey } from "./settings.js";
 
 Hooks.once("init", () => {
 	registerSettings();
@@ -26,6 +27,7 @@ Hooks.once("ready", () => {
 });
 
 Hooks.on("renderChatMessage", LockedDoorAlert.onRenderChatMessage);
+Hooks.on("renderChatMessage", UnlockedDoorAlert.onRenderChatMessage);
 
 Hooks.on("canvasReady", DoorControlIconScale.onCanvasReady);
 Hooks.on("canvasReady", HighlightSecretDoors.onCanvasReady);
@@ -110,7 +112,7 @@ function onDoorMouseDown(event) {
 
 // Our custom handler for rightdown events on doors
 function onDoorRightDown(event) {
-	if (SynchronizedDoors.onDoorRightClick.call(this)) return true;
+	if (UnlockedDoorAlert.onDoorRightClick.call(this)) return true;
 
 	return false;
 }
